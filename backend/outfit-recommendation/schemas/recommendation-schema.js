@@ -1,21 +1,21 @@
 const mongoose = require('mongoose');
 
 const RecommendationSchema = new mongoose.Schema({
-    sku_id: { type: String, required: true, unique: true },       // unique product code
-    title: { type: String, required: true },                       // product name/title
-    sector: { type: String },                                      // optional sector/department
-    lowest_price: { type: Number, default: 0 },                    // price for budget filtering
-    brand_name: { type: String },                                   // brand
-    category: { type: String },                                     // main category, e.g., top/bottom/shoes
-    sub_category: { type: String },                                 // e.g., shirt, jeans
-    product_type: { type: String },                                  // optional product type
-    gender: { type: String },                                       // male/female/unisex
-    description: { type: String },                                   // product description
-    tags: [{ type: String }],                                        // array of tags
-    featured_image: { type: String },                                // image URL
-    style: { type: String, default: 'casual' },                     // casual/formal/etc.
-    season: { type: String, default: 'all' },                       // winter/summer/all
-    occasion: { type: String, default: 'casual' },                  // casual/formal/etc.
+    sku_id: { type: String, required: true, unique: true },
+    title: { type: String, required: true },
+    sector: { type: String },
+    lowest_price: { type: Number, default: 0 },
+    brand_name: { type: String },
+    category: { type: String },
+    sub_category: { type: String },
+    product_type: { type: String },
+    gender: { type: String },
+    description: { type: String },
+    tags: [{ type: String }],
+    featured_image: { type: String },
+    style: { type: String, default: 'casual' },
+    season: { type: String, default: 'all' },
+    occasion: { type: String, default: 'casual' },
     createdAt: { type: Date, default: Date.now }
 });
 

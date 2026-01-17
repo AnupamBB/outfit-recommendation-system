@@ -3,10 +3,8 @@ const router = express.Router();
 
 const recommendationController = require('../controllers/recommendation-controller');
 
-// Health check
 router.get('/health', recommendationController.health);
-
-// Get outfit recommendations
-router.post('/recommend', recommendationController.recommend);
+router.get('/products-list', recommendationController.productsList);
+router.post('/outfit-recommendations', recommendationController.getOutfitRecommendations);
 
 module.exports = router;
