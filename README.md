@@ -56,7 +56,7 @@ Since raw data often lacks explicit color fields, we implemented an **Inference 
 
 ---
 
-## ⚡ Performance Strategy
+## Performance Strategy
 
 **Goal:** < 1 second response time.
 
@@ -91,17 +91,18 @@ This system uses a **Deterministic Rule-Based AI** approach.
 ### Backend Setup
 ```bash
 cd backend/outfit-recommendation
-run npm install
-# Create .env file with: MONGO_URI=your_connection_string
-run node scripts/importExcel.js
-run npm run dev
+npm install
+# Create a .env file same as env.sample
+# Add your MongoDB connection string in the .env file
+node scripts/importExcel.js
+npm run dev
 ```
 
 ### Frontend Setup
 ```bash
 cd frontend/outfit-recommendation
-run npm install
-run npm run dev
+npm install
+npm run dev
 ```
 
 ### Sample API Request
