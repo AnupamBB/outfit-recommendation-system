@@ -7,16 +7,16 @@ const RecommendationSchema = require('../schemas/recommendation-schema');
 const Recommendation = mongoose.model('Recommendation', RecommendationSchema, 'recommendations');
 
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ MongoDB connected'))
+    .then(() => console.log('MongoDB connected'))
     .catch(err => {
-        console.error('❌ MongoDB connection error:', err);
+        console.error('MongoDB connection error:', err);
         process.exit(1);
     });
 
-// Path to your Excel file (relative to this script)
+// Excel file path
 const filePath = path.join(__dirname, 'Sample_Products.xlsx');
 
-// Read Excel file
+// Reading Excel file
 const workbook = xlsx.readFile(filePath);
 const sheetName = workbook.SheetNames[0];
 const sheet = workbook.Sheets[sheetName];
@@ -32,9 +32,39 @@ const parseTags = (tagsStr) => {
     }
 };
 
+const COLORS = {
+    'red': ['red', 'crimson', 'burgundy', 'cherry', 'ruby', 'maroon', 'wine'],
+    'blue': ['blue', 'navy', 'azure', 'cobalt', 'teal', 'indigo', 'denim'],
+    'green': ['green', 'olive', 'mint', 'emerald', 'lime', 'sage'],
+    'yellow': ['yellow', 'gold', 'mustard', 'lemon'],
+    'black': ['black', 'ebony', 'jet', 'charcoal'],
+    'white': ['white', 'ivory', 'cream', 'pearl'],
+    'grey': ['grey', 'gray', 'silver', 'slate', 'ash'],
+    'brown': ['brown', 'tan', 'beige', 'khaki', 'camel', 'chocolate'],
+    'purple': ['purple', 'violet', 'lavender', 'plum', 'magenta'],
+    'pink': ['pink', 'rose', 'coral', 'fuchsia', 'salmon', 'peach'],
+    'orange': ['orange', 'rust', 'amber', 'tangerine']
+};
+
+const extractColor = (text) => {
+    if (!text) return 'neutral';
+    const lower = text.toLowerCase();
+
+    for (const [mainColor, variations] of Object.entries(COLORS)) {
+        if (variations.some(v => lower.includes(v))) {
+            return mainColor;
+        }
+    }
+    return 'neutral';
+};
+
 const importData = async () => {
     try {
         for (const product of products) {
+            // Combining all text fields for better color detection
+            const fullText = `${product.title} ${product.description} ${product.tags} ${product.color || ''}`;
+            const detectedColor = extractColor(fullText);
+
             const doc = {
                 sku_id: product.sku_id || '',
                 title: product.title || '',
@@ -51,6 +81,7 @@ const importData = async () => {
                 style: product.style || 'casual',
                 season: product.season || 'all',
                 occasion: product.occasion || 'casual',
+                primary_color: detectedColor
             };
 
             await Recommendation.updateOne(
@@ -60,10 +91,10 @@ const importData = async () => {
             );
         }
 
-        console.log('✅ Excel data imported successfully!');
+        console.log('Excel data imported successfully!');
     }
     catch (err) {
-        console.error('❌ Error importing Excel:', err);
+        console.error('Error importing Excel:', err);
     }
     finally {
         mongoose.disconnect();

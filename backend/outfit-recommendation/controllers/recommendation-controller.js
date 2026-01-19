@@ -1,12 +1,5 @@
 const { getProductsList, getCompleteOutfitRecommendations } = require('../models/recommendation-model');
 
-exports.health = async (req, res) => {
-    return res.status(200).json({
-        status: 'ok',
-        service: 'outfit-recommendation'
-    });
-};
-
 exports.productsList = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;

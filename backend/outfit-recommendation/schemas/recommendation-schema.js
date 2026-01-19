@@ -16,6 +16,7 @@ const RecommendationSchema = new mongoose.Schema({
     style: { type: String, default: 'casual' },
     season: { type: String, default: 'all' },
     occasion: { type: String, default: 'casual' },
+    primary_color: { type: String, default: 'neutral' },
     createdAt: { type: Date, default: Date.now }
 });
 

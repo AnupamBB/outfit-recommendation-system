@@ -15,14 +15,6 @@ app.use(express.json());
 // Routes
 app.use('/api/v1/recommendation', recommendationRoutes);
 
-app.get("/health", (req, res) => {
-    res.status(200).json({
-        status: "ok",
-        service: "outfit-recommendation",
-        message: "Outfit Recommendation service is running"
-    });
-});
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Outfit Recommendation service running on port ${PORT}`);
