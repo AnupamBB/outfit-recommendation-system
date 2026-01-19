@@ -17,15 +17,15 @@ const ListOutfitCard = ({ outfit }) => {
                 src={outfit.featured_image}
                 alt={outfit.title}
                 style={{
-                    width: '100%',
+                    width: '180px',
                     height: '180px',
-                    objectFit: 'cover',
+                    objectFit: 'contain',
                     borderRadius: '6px'
                 }}
             />
-            <h4 style={{ margin: '10px 0 5px', fontSize: '14px' }}>{outfit.title}</h4>
+            <h4 style={{ margin: '10px 0 5px', fontSize: '14px', color: '#797979' }}>{outfit.title}</h4>
             <p style={{ margin: '0', fontSize: '12px', color: '#555' }}>{outfit.brand_name}</p>
-            <p style={{ margin: '5px 0 0', fontWeight: 'bold' }}>
+            <p style={{ margin: '5px 0 0', fontWeight: 'bold', color: 'black' }}>
                 ₹{outfit.lowest_price || 'N/A'}
             </p>
             <p style={{ fontSize: '12px', color: '#777', marginTop: '4px' }}>

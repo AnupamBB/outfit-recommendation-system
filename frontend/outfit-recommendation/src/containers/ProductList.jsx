@@ -67,8 +67,9 @@ const ProductList = () => {
     }, []);
 
     return (
-        <div style={{ padding: '24px' }}>
-            <h1>Available Products</h1>
+        <div style={{ padding: '24px', paddingLeft: '10%', paddingRight: '10%' }}>
+            <h1 style={{ "text-align": "center" }}>Available Products</h1>
+
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
