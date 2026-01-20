@@ -36,20 +36,32 @@ The system follows a clean **MVC (Model-View-Controller)** architecture with a l
 4.  **Response:** Returns a JSON object with the complete outfit and pricing details.
 
 ---
+## Flow Diagram
+![Flow Diagram](./outfit-recommendation-system/frontend/outfit-recommendation/src/assets/Flow.png)
+---
 
 ## Recommendation Logic
 
 The core intelligence lies in the `calculateMatchScore` function (`backend/models/recommendation-model.js`). It assigns a score (0.0 - 1.0) based on:
 
-1.  **Color Harmony (20%)**:
-    *   Checks if the candidate's `primary_color` harmonizes with the base product's color.
-    *   Uses a predefined `COLOR_HARMONY` rule set (e.g., *Navy* pairs with *White, Beige, Grey*).
-2.  **Occasion & Season Fit (30%)**:
-    *   Strict matching for rigorous occasions (Formal), relaxed for Casual.
-3.  **Brand Affinity (30%)**:
-    *   Slight preference for matching brands to ensure consistent design language.
-4.  **Price Optimization (10%)**:
-    *   Ensures the item fits within the remaining budget slice.
+1. **Brand Affinity (20%)**
+   Prioritizes items from the same brand as the selected product to maintain a consistent design language.
+   A partial score is still given for different brands to avoid overly strict filtering.
+
+2. **Budget Compatibility (20%)**
+   Evaluates whether the item fits comfortably within the remaining budget.
+   Items priced within **40% of the remaining budget** receive higher scores.
+
+3. **Occasion & Season Match (20%)**
+   Measures alignment between the selected product and the candidate item based on occasion and season.
+   Formal occasions are matched strictly, while casual use cases allow flexibility.
+
+4. **Color Harmony (20%)**
+   Ensures visual balance by checking if the candidate’s `primary_color` complements the selected product’s color.
+   Uses predefined color harmony rules for aesthetically pleasing combinations.
+
+5. **Price Advantage (10%)**
+   Slightly boosts items that are priced lower than the selected product to help optimize the overall outfit cost.
 
 ### Color Inference
 Since raw data often lacks explicit color fields, we implemented an **Inference Engine** in our import pipeline (`importExcel.js`) that detects colors from product standard text (Title, Description, Tags) and normalizes them (e.g., "Crimson" → "Red").
