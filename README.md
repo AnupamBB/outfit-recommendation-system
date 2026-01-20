@@ -35,6 +35,7 @@ The system follows a clean **MVC (Model-View-Controller)** architecture with a l
     *   **Selection:** The best item for each role (Top, Bottom, Footwear, Accessory) is selected.
 4.  **Response:** Returns a JSON object with the complete outfit and pricing details.
 
+## Flow Diagram
 ![Flow Diagram](./frontend/outfit-recommendation/src/assets/Flow.png)
 ---
 
